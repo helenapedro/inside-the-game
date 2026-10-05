@@ -1,8 +1,8 @@
-# MatchLens AI — Design Doc (draft v2)
+# MatchLens AI: Design Doc (draft v2)
 
-**Hackathon:** Microsoft × Premier League — *Inside the Game: Developer Hackathon*
+**Hackathon:** Microsoft × Premier League, *Inside the Game: Developer Hackathon*
 **Category:** Best Multi-Agent Orchestration
-**Author:** Helena Pedro · **Status:** DRAFT — topology aligned to the Oct 4 decision outline
+**Author:** Helena Pedro · **Status:** DRAFT (topology aligned to the Oct 4 decision outline)
 **Window:** hacking Oct 6–27, 2026 · submission by Oct 27, 11:59 PM PT
 
 Two decisions are deliberately **not** made in this draft, pending ratification:
@@ -11,10 +11,10 @@ October 6 gate (Section 7).
 
 ## 1. Problem
 
-A football match is a firehose of events — passes, shots, tackles, possession
+A football match is a firehose of events: passes, shots, tackles, possession
 changes, pressure shifts. Fans, studios, and streamers want that stream turned
 into *understanding*: what is happening, why it matters, and what pattern it
-reveals — live, in plain language, backed by evidence. A single LLM call does
+reveals, live, in plain language, backed by evidence. A single LLM call does
 this shallowly: it reads everything at once, blurs the lenses together, and
 cannot show its work.
 
@@ -61,8 +61,8 @@ like one agent in a trench coat.
 
 - **Shared state:** a versioned `MatchState` (match clock, score, the three
   agents' current reads, named pattern, recap draft) owned by the Coordinator.
-  Agents read snapshots, write structured reads — never free-text blobs.
-  *(Fields finalized only after the Oct 6 gate — Section 7.)*
+  Agents read snapshots, write structured reads, never free-text blobs.
+  *(Fields finalized only after the Oct 6 gate; see Section 7.)*
 - **Handoffs:** explicit contracts between Coordinator → readers → Pattern →
   Recap; every handoff logged with input/output hashes so the collaboration is
   auditable in the demo and the README.
@@ -71,22 +71,22 @@ like one agent in a trench coat.
   *flags the gap* in the recap instead of hallucinating. Degraded mode is a
   rubric feature, not a bug.
 
-## 6. PENDING RATIFICATION — orchestration route
+## 6. PENDING RATIFICATION: orchestration route
 
 Microsoft offers two routes; one paragraph must choose between them:
 
-- **Route A — custom code in Azure Container Apps + Foundry model.** Full
+- **Route A: custom code in Azure Container Apps + Foundry model.** Full
   control over the Coordinator, shared state, and handoff logging; more
   infrastructure to own during a short window that also contains the Oct 8
   CS529 midterm.
-- **Route B — Foundry Agent Service (managed runtime).** Agents defined in
+- **Route B: Foundry Agent Service (managed runtime).** Agents defined in
   Foundry, runtime managed; faster to stand up, less surface for custom
   orchestration mechanics (shared state and handoff logs need care to stay
   visible to judges).
 
 *Decision and one-paragraph rationale to be added here after ratification.*
 
-## 7. October 6 gate — read before designing data
+## 7. October 6 gate: read before designing data
 
 On Oct 6, time-boxed: open the real synthetic dataset, note its fields, format,
 and delivery mechanism, and only then design event tables or search indexing.
@@ -112,7 +112,7 @@ provided data cadence, voice commentary.
 | Oct 16–21 | Pattern + Recap; UI; failure-recovery paths |
 | Oct 22–25 | Hardening, README, pitch, demo script |
 | Oct 26 | Record demo video; submission dry-run |
-| Oct 27 | Submit — well before 23:59 PT |
+| Oct 27 | Submit well before 23:59 PT |
 
 ## 10. Demo video plan (<2 min, hard limit)
 
@@ -127,7 +127,7 @@ Screen-record the real app; no stock footage, no copyrighted music.
 - [ ] Public GitHub repo: README (setup, architecture, tech list) + `docs/design.md`
 - [ ] Pitch/description on the project page (tech used, problem solved)
 - [ ] Demo video <2 min, public URL (YouTube/Vimeo)
-- [ ] Synthetic data only — no real Premier League data in repo or video
+- [ ] Synthetic data only; no real Premier League data in repo or video
 
 ## 12. Open questions for the Challenge brief
 
