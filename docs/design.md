@@ -5,9 +5,8 @@
 **Author:** Helena Pedro · **Status:** DRAFT (topology aligned to the Oct 4 decision outline)
 **Window:** hacking Oct 6–27, 2026 · submission by Oct 27, 11:59 PM PT
 
-Two decisions are deliberately **not** made in this draft, pending ratification:
-the orchestration route (Section 6) and the data model, which waits for the
-October 6 gate (Section 7).
+One decision is deliberately **not** made in this draft: the data model waits
+for the October 6 gate (Section 7).
 
 ## 1. Problem
 
@@ -71,20 +70,47 @@ like one agent in a trench coat.
   *flags the gap* in the recap instead of hallucinating. Degraded mode is a
   rubric feature, not a bug.
 
-## 6. PENDING RATIFICATION: orchestration route
+## 6. Orchestration route: Route C (hosted agents), ratified Oct 5
 
-Microsoft offers two routes; one paragraph must choose between them:
+Microsoft offers three shapes for this. **Route A** is custom code in Azure
+Container Apps with a Foundry model: the most infrastructure control, and the
+most to provision and operate in a three-week window that also contains a
+midterm. **Route B** is prompt-defined Foundry agents: the least to manage and
+the weakest fit, because MatchLens's core (a deterministic Coordinator,
+versioned MatchState, logged handoffs, failure recovery) is custom
+orchestration logic, not prompts. **Route C** is hosted agents in Foundry Agent
+Service: the same custom Python code packaged as a container image (or source
+Foundry builds into one), with Foundry running it behind a managed endpoint
+with automatic scaling, a dedicated Entra identity, session-level state
+persistence, and end-to-end observability.
 
-- **Route A: custom code in Azure Container Apps + Foundry model.** Full
-  control over the Coordinator, shared state, and handoff logging; more
-  infrastructure to own during a short window that also contains the Oct 8
-  CS529 midterm.
-- **Route B: Foundry Agent Service (managed runtime).** Agents defined in
-  Foundry, runtime managed; faster to stand up, less surface for custom
-  orchestration mechanics (shared state and handoff logs need care to stay
-  visible to judges).
+**Decision: Route C, with Route A as the fallback.** One person, three weeks,
+and a midterm in the middle argue for spending the hours on the orchestration
+the rubric pays for, not on operating Container Apps, a container registry, and
+separate hosting. The Coordinator, MatchState, handoff contracts, and failure
+recovery stay in code we control; Foundry takes hosting, scaling, identity,
+session persistence, and observability. If a hosted limit blocks the design,
+we fall back to Route A and the Coordinator code moves unchanged.
 
-*Decision and one-paragraph rationale to be added here after ratification.*
+Conditions and caveats, kept attached to the decision:
+
+- This stands **only if the access check passes**: active Azure
+  subscription; Foundry Project Manager on an existing project (or Owner at
+  resource-group scope); Azure Developer CLI 1.27.1+ with the
+  microsoft.foundry extension and an authenticated azd session; an
+  authenticated Azure CLI session; Python 3.13+; an existing Foundry project
+  with a deployed chat model and available quota. The quickstart's example
+  model is an example, not a requirement.
+- Hosted billing adds container compute on top of inference and scales per
+  active session; keep the sandbox small (hosted sandboxes run 0.5 vCPU /
+  1 GiB to 2 vCPU / 4 GiB). Versions are immutable once created, so every
+  resource or environment change is a new version to retest. Hosted agents
+  support Python and C# only; Python is our language, so this does not bind.
+- Session state persistence stores application state; it does **not** design
+  how three parallel readers share one MatchState. The contract work in
+  Sections 4 and 5 remains ours.
+- Nothing is provisioned (no Container Apps, Cosmos DB, or registry stack)
+  before the dataset is seen on Oct 6.
 
 ## 7. October 6 gate: read before designing data
 
