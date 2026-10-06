@@ -14,7 +14,7 @@ Design phase. Hacking window: Oct 6–27, 2026. See [docs/design.md](docs/design
 
 ## Tech
 
-Microsoft Foundry · Azure AI Services · Azure Container Apps / Functions · GitHub Copilot
+Microsoft Foundry (hosted agents) · Azure AI Services · GitHub Copilot
 
 ---
 
