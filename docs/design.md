@@ -112,12 +112,36 @@ Conditions and caveats, kept attached to the decision:
 - Nothing is provisioned (no Container Apps, Cosmos DB, or registry stack)
   before the dataset is seen on Oct 6.
 
-## 7. October 6 gate: read before designing data
+## 7. Data gate: resolved Oct 9 (no provided dataset; we generate ours)
 
-On Oct 6, time-boxed: open the real synthetic dataset, note its fields, format,
-and delivery mechanism, and only then design event tables or search indexing.
-No data model before this gate. This section gets the dataset notes; Sections 4–5
-get adjusted to reality if the data disagrees with them.
+Original plan was to inspect a provided dataset on Oct 6 before designing any
+data model. That gate is now resolved by a negative finding: Helena checked
+Innovation Studio on Oct 9 and found no dataset file, and the Challenge brief
+supplies none either. The brief's wording points the same way: projects must
+use synthetic, football-realistic data, no real Premier League data is
+redistributed, and item (v) explicitly invites creating or extending synthetic
+datasets. So the dataset is ours to generate, and the ingestor consumes an
+event stream we define.
+
+Proposed synthetic event schema (to ratify Oct 12; tuned so every reader lens
+and every brief feature has the fields it needs):
+
+- `event_id`, `match_id`, `period`, `match_clock_seconds`
+- `event_type`: pass, shot, tackle, possession_change, pressure, foul,
+  kickoff, goal
+- `team_id`, `player_id` (stable across the match)
+- `x`, `y` (0-100 pitch coordinates), `end_x`, `end_y` if applicable
+- `outcome` (successful/unsuccessful/intercepted), `possession_id`
+- Speed and distance inputs: pass distance derived from coordinates; ball
+  and shot speed generated within realistic ranges
+- Match metadata: team names, formations, a pre-set tactical script (which team
+  presses high, how momentum shifts) so the Pattern Agent has a real pattern
+  to find and the recap has something true to say
+
+Generator shape: a deterministic, seeded simulator emitting one full match as
+an ordered event log (JSON lines), fast enough to replay in real time or
+accelerated for the demo. This doubles as brief item (v), data innovation,
+and makes the demo reproducible.
 
 ## 8. MVP scope
 
@@ -185,13 +209,16 @@ Screen-record the real app; no stock footage, no copyrighted music.
 
 ## 12. Open questions for the Challenge brief
 
-1. Dataset delivery (download/API/stream) and schema? **Still open** (Oct 6 gate
-   pending; the brief text describes requirements, not the data itself).
+1. Dataset delivery (download/API/stream) and schema? **Resolved Oct 9: no
+   provided dataset found on Innovation Studio; we generate our own synthetic
+   event stream (Section 7).**
 2. Required or prohibited models/services? Provided Azure credits? **Brief text
    silent on both**; no required services named, no credit offer stated.
 3. Exact submission fields on the project page? **Not in the brief text**; the
    Oct 1 overview's submission list (Section 11 checklist) stands.
-4. Single fixture or multiple matches in the dataset? **Still open.**
+4. Single fixture or multiple matches in the dataset? **Ours to choose**: the
+   generator will produce one canonical demo match, parameterized so more
+   matches cost nothing extra.
 
 Answered by the brief (Oct 9): the five-stage pipeline and feature list are
 requirements, not suggestions; personalization (stage e) is a core stage;
