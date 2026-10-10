@@ -150,9 +150,9 @@ of scope unless the dataset turns out to be video.
 
 One gap versus our earlier scope: the brief treats personalization as a
 first-class stage, not a stretch goal. Proposal (pending Helena's ratification,
-Oct 12): promote the minimal version into the MVP — two rendering modes over
+Oct 12): promote the minimal version into the MVP, two rendering modes over
 the same MatchState, analyst (dense stats) and casual fan (story first), plus a
-player-focused filter — because stage (e) is one of five and the fallback
+player-focused filter, because stage (e) is one of five and the fallback
 scope must not quietly drop it.
 
 ## 9. Timeline
