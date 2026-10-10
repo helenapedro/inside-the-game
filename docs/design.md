@@ -127,6 +127,34 @@ orchestration visible (agents working, handoffs, degraded mode); <2 min demo.
 **Out (stretch only):** multi-match support, accounts, live streaming beyond the
 provided data cadence, voice commentary.
 
+### Official pipeline mapping (Challenge brief, received Oct 9)
+
+The brief defines one pipeline in five stages. Our topology covers each stage,
+which is worth stating explicitly on the project page and in the demo:
+
+| Brief stage | Our piece |
+|---|---|
+| (a) Ingest events as they happen | Event Ingestor + Coordinator intake |
+| (b) Interpret into stats, patterns, context | The three parallel readers |
+| (c) Explain why a moment matters | Pattern Agent (control vs chaos, pressure changes, rhythm) |
+| (d) Render insight on screen | UI feed + recap panel |
+| (e) Personalize | Two audience modes (analyst vs casual fan), player-focused mode via the Player Involvement lens, EN/PT language |
+
+The brief also lists features to consider: player identification with speed
+and distance thresholds, pass quality (distance, accuracy, difficulty rating),
+ball and shot speed, auto-eventing from video, narrative generation, and
+multi-language storytelling. We take the narrative and multi-language items as
+core (already in scope); pass quality and speed metrics are cheap deterministic
+computations if the dataset carries the fields; auto-eventing from video is out
+of scope unless the dataset turns out to be video.
+
+One gap versus our earlier scope: the brief treats personalization as a
+first-class stage, not a stretch goal. Proposal (pending Helena's ratification,
+Oct 12): promote the minimal version into the MVP — two rendering modes over
+the same MatchState, analyst (dense stats) and casual fan (story first), plus a
+player-focused filter — because stage (e) is one of five and the fallback
+scope must not quietly drop it.
+
 ## 9. Timeline
 
 | Dates | Work |
@@ -157,7 +185,15 @@ Screen-record the real app; no stock footage, no copyrighted music.
 
 ## 12. Open questions for the Challenge brief
 
-1. Dataset delivery (download/API/stream) and schema? *(Oct 6 gate)*
-2. Required or prohibited models/services? Provided Azure credits?
-3. Exact submission fields on the project page?
-4. Single fixture or multiple matches in the dataset?
+1. Dataset delivery (download/API/stream) and schema? **Still open** (Oct 6 gate
+   pending; the brief text describes requirements, not the data itself).
+2. Required or prohibited models/services? Provided Azure credits? **Brief text
+   silent on both**; no required services named, no credit offer stated.
+3. Exact submission fields on the project page? **Not in the brief text**; the
+   Oct 1 overview's submission list (Section 11 checklist) stands.
+4. Single fixture or multiple matches in the dataset? **Still open.**
+
+Answered by the brief (Oct 9): the five-stage pipeline and feature list are
+requirements, not suggestions; personalization (stage e) is a core stage;
+narrative generation, explainability, and multi-language output are expected.
+See Section 8 mapping.
